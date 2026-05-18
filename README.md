@@ -12,6 +12,22 @@ The goal is to turn marketplace transaction data into practical business insight
 - detect regional demand and supply gaps;
 - translate the analysis into business recommendations.
 
+## Executive Snapshot
+
+| Metric | Value |
+| --- | ---: |
+| Total orders | 99,441 |
+| Unique customers | 96,096 |
+| Sellers | 3,095 |
+| Unique products sold | 32,951 |
+| Average order value | 160.43 |
+| Repeat purchase rate | 3.12% |
+| Average review score | 4.09 / 5 |
+| Negative review rate | 14.69% |
+| Average delivery time | 12.09 days |
+| Late delivery rate | 8.11% |
+| Cancellation rate | 0.63% |
+
 ## Dataset
 
 Source: Olist Brazilian E-commerce Public Dataset from Kaggle.
@@ -44,6 +60,12 @@ The local `data/` folder contains Excel versions of the original tables:
 ├── README.md
 └── requirements.txt
 ```
+
+## Portfolio Deliverables
+
+- [SQL notebook](notebooks/sql/brazilian_e-commerce.ipynb): end-to-end SQLite analysis with business takeaways and recommendations.
+- [Python notebook](notebooks/pandas/pandas_e-commerce.ipynb): visualization-focused EDA for sales, payments, reviews, logistics, sellers, products, geography, and risk.
+- [Reviewed SQL query set](sql/business_questions.sql): clean 40-question SQL reference for repeatable analysis.
 
 ## Analysis Scope
 
