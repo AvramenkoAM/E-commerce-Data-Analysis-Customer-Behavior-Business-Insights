@@ -66,6 +66,25 @@ The local `data/` folder contains Excel versions of the original tables:
 - [SQL notebook](notebooks/sql/brazilian_e-commerce.ipynb): end-to-end SQLite analysis with business takeaways and recommendations.
 - [Python notebook](notebooks/pandas/pandas_e-commerce.ipynb): visualization-focused EDA for sales, payments, reviews, logistics, sellers, products, geography, and risk.
 - [Reviewed SQL query set](sql/business_questions.sql): clean 40-question SQL reference for repeatable analysis.
+- [Chart gallery](images/): 33 exported visuals generated from the Python notebook.
+
+## Visualization Gallery
+
+| Sales & GMV | Payments |
+| --- | --- |
+| ![Monthly order volume](images/02-monthly-order-volume.png) | ![Revenue by payment method](images/09-revenue-by-payment-method.png) |
+
+| Reviews & Delivery | Logistics Risk |
+| --- | --- |
+| ![Review score by delivery time](images/12-review-score-distribution-by-delivery-time-band.png) | ![Delayed orders](images/16-share-of-delayed-vs-on-time-orders.png) |
+
+| Product Categories | Geographic Demand |
+| --- | --- |
+| ![Top categories by GMV](images/23-top-15-categories-by-gmv-price-freight.png) | ![Top customer states](images/26-top-15-states-by-unique-customers.png) |
+
+| Seller Risk | Composite Business Risk |
+| --- | --- |
+| ![Negative reviews by seller](images/21-top-10-sellers-by-number-of-negative-reviews-scores-1-2.png) | ![Composite category risk](images/33-top-20-categories-by-composite-risk-score.png) |
 
 ## Analysis Scope
 
