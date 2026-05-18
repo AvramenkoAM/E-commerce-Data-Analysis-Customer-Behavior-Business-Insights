@@ -51,12 +51,16 @@ The local `data/` folder contains Excel versions of the original tables:
 ```text
 .
 ├── data/                         # Dataset files and data notes
+├── bi_exports/                   # Tableau / Power BI-ready analytical CSV exports
+├── dashboards/                   # BI dashboard prototypes and dashboard notes
+├── docs/                         # Project planning and dashboard style documentation
 ├── notebooks/
 │   ├── pandas/                   # Python EDA and visualizations
 │   └── sql/                      # SQL analysis in SQLite
 ├── sql/
 │   └── business_questions.sql    # Clean, reviewed SQL query set
-├── images/                       # Reserved for exported charts/screenshots
+├── images/                       # Exported charts and dashboard screenshots
+├── scripts/                      # Repeatable export scripts
 ├── README.md
 └── requirements.txt
 ```
@@ -67,6 +71,21 @@ The local `data/` folder contains Excel versions of the original tables:
 - [Python notebook](notebooks/pandas/pandas_e-commerce.ipynb): visualization-focused EDA for sales, payments, reviews, logistics, sellers, products, geography, and risk.
 - [Reviewed SQL query set](sql/business_questions.sql): clean 40-question SQL reference for repeatable analysis.
 - [Chart gallery](images/): 33 exported visuals generated from the Python notebook.
+- [BI dashboard prototype](dashboards/olist_tableau_style_dashboard.html): Tableau-inspired executive dashboard preview built from Olist BI exports.
+
+## BI Dashboard Prototype
+
+This branch adds a Tableau-style dashboard implementation for the Olist marketplace analysis.
+
+![Olist Tableau-style BI dashboard](images/bi/olist_tableau_style_dashboard.png)
+
+Supporting assets:
+
+- [BI dashboard plan](docs/bi_dashboard_plan.md): dashboard scope, pages, metrics, and implementation roadmap.
+- [Tableau reference style notes](docs/tableau_reference_style.md): visual system observed from the reference dashboard.
+- [BI export script](scripts/export_bi_dashboard_data.py): repeatable export pipeline for Tableau / Power BI.
+- [BI exports](bi_exports/): CSV files and dashboard JSON used by the prototype.
+- [Dashboard preview](dashboards/olist_tableau_style_dashboard.html): local interactive HTML preview.
 
 ## Visualization Gallery
 

@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Olist Marketplace BI Dashboard</title>
+  <style>
+    :root {
+      --ink: #1f2025;
+      --ink-soft: #34363d;
+      --paper: #ffffff;
+      --canvas: #f4f4f5;
+      --line: #e6e7eb;
+      --muted: #7b7f8a;
+      --blue: #2846f6;
+      --blue-soft: #aab5ff;
+      --purple: #6f2df4;
+      --cyan: #62d8f5;
+      --green: #2fa84f;
+      --red: #ef6262;
+      --radius: 3px;
+      --shadow: 0 14px 30px rgba(18, 20, 28, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+    }
+
+    .shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      background: var(--canvas);
+      min-height: 100vh;
+    }
+
+    .hero {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 42px 72px 110px;
+      position: relative;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 78px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      position: relative;
+      width: 66px;
+      height: 34px;
+    }
+
+    .mark span {
+      position: absolute;
+      top: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .mark span:first-child {
+      left: 0;
+      background: var(--cyan);
+    }
+
+    .mark span:last-child {
+      left: 26px;
+      background: var(--purple);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      align-items: end;
+      max-width: 700px;
+      margin-left: auto;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .tab {
+      padding: 10px 18px 18px;
+      color: #f0f2ff;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab.active {
+      border-bottom-color: var(--blue);
+    }
+
+    .headline {
+      max-width: 720px;
+    }
+
+    .headline h1 {
+      margin: 0 0 32px;
+      font-size: 44px;
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .headline p {
+      margin: 0 0 20px;
+      max-width: 690px;
+      color: #d7d9df;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .content {
+      margin-top: -78px;
+      padding: 0 72px 72px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .kpi-card {
+      min-height: 190px;
+      padding: 28px 22px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 110px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .iconbox {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: #dff3ff;
+      display: grid;
+      place-items: center;
+      margin-bottom: 34px;
+      color: var(--ink);
+    }
+
+    .kpi-value {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 500;
+      letter-spacing: 0;
+      margin-bottom: 20px;
+    }
+
+    .kpi-label {
+      color: var(--ink-soft);
+      font-size: 16px;
+    }
+
+    .trend {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 42px;
+    }
+
+    .trend strong {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .trend strong.negative {
+      color: var(--red);
+    }
+
+    .spark {
+      height: 72px;
+      display: flex;
+      align-items: end;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    .spark span {
+      width: 6px;
+      min-height: 8px;
+      background: var(--blue-soft);
+      display: block;
+    }
+
+    .spark span.primary {
+      background: var(--blue);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2.1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 26px 30px 28px;
+      min-height: 280px;
+    }
+
+    .panel h2 {
+      margin: 0 0 24px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+
+    .panel p {
+      margin: 0 0 20px;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .small-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 74px;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 0;
+      font-size: 13px;
+    }
+
+    .bar-track {
+      height: 22px;
+      background: #e9e9eb;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--blue);
+      width: 0;
+    }
+
+    .table-wrap {
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    td {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 11px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .risk {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 1120px) {
+      .hero,
+      .content {
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+
+      .kpi-grid,
+      .dashboard-grid,
+      .small-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        margin-left: 0;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="topbar">
+        <div class="brand">
+          <div class="mark"><span></span><span></span></div>
+          <div>Olist Marketplace Dashboard <span style="color:#8ea0ff">Overview</span></div>
+        </div>
+        <nav class="tabs" aria-label="Dashboard sections">
+          <div class="tab active">KPIs Summary</div>
+          <div class="tab">Product</div>
+          <div class="tab">Customer</div>
+          <div class="tab">Logistics</div>
+        </nav>
+      </div>
+
+      <div class="headline">
+        <h1>Welcome back, Marketplace Team</h1>
+        <p>
+          This dashboard provides a portfolio-ready view of marketplace performance, tracking
+          <strong>GMV, orders, customers, payment mix, reviews, logistics, sellers, and product risk</strong>
+          from the Olist e-commerce dataset.
+        </p>
+        <p>
+          The layout follows the Tableau reference style: a dark executive header, clean white KPI cards,
+          sharp blue accents, compact trend charts, and dense operational detail for decision-making.
+        </p>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="dashboard-grid">
+        <div>
+          <section class="card panel">
+            <h2>GMV Overtime</h2>
+            <p>This is monthly GMV and order trend over the available marketplace period.</p>
+            <svg class="chart-svg" id="lineChart" viewBox="0 0 760 300" role="img" aria-label="GMV and order trend"></svg>
+          </section>
+
+          <div class="small-grid">
+            <section class="card panel">
+              <h2>GMV by Product Category</h2>
+              <svg class="chart-svg" id="donutChart" viewBox="0 0 360 280" role="img" aria-label="Product category GMV donut"></svg>
+            </section>
+            <section class="card panel">
+              <h2>Top Category Revenue</h2>
+              <div id="categoryBars"></div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="card panel table-wrap">
+          <h2>Seller Risk Breakdown</h2>
+          <p>High-volume sellers ranked by negative review rate.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Seller</th>
+                <th>State</th>
+                <th>Orders</th>
+                <th>Neg. rate</th>
+              </tr>
+            </thead>
+            <tbody id="sellerRows"></tbody>
+          </table>
+        </aside>
+      </div>
+
+      <div class="small-grid">
+        <section class="card panel">
+          <h2>Customer Data Breakdown</h2>
+          <p>Largest customer states by unique customer count.</p>
+          <div id="stateBars"></div>
+        </section>
+        <section class="card panel">
+          <h2>Composite Category Risk</h2>
+          <p>Risk score combines negative reviews, late deliveries, and cancellations.</p>
+          <div id="riskBars"></div>
+        </section>
+      </div>
+
+      <p class="footer-note">
+        Data source: Olist Brazilian E-commerce Public Dataset. CSV exports are available in
+        <code>bi_exports/</code> for Tableau or Power BI modeling.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const fmtMoney = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 1 });
+    const fmtCompact = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+    const fmtPct = new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1 });
+
+    function icon(name) {
+      const icons = {
+        money: '<svg width="31" height="31" viewBox="0 0 31 31" fill="none"><circle cx="15.5" cy="15.5" r="13" stroke="currentColor" stroke-width="2"/><path d="M16 7v17M20 11.5c-1-1.1-2.4-1.7-4.1-1.7-2.1 0-3.6 1-3.6 2.6 0 1.7 1.7 2.3 3.8 2.8 2.2.5 4.1 1.2 4.1 3.2 0 1.8-1.7 3-4.1 3-1.9 0-3.5-.7-4.8-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+        chart: '<svg width="31" height="31" viewBox="0 0 31 31" fill="none"><path d="M5 25h21M8 21V12h4v9M14 21V6h4v15M20 21V10h4v11" stroke="currentColor" stroke-width="2"/><path d="M7 15l5-5 5 4 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+        bag: '<svg width="31" height="31" viewBox="0 0 31 31" fill="none"><path d="M8 11h15l-1 15H9L8 11z" stroke="currentColor" stroke-width="2"/><path d="M12 11c0-3 1.5-5 4-5s4 2 4 5" stroke="currentColor" stroke-width="2"/></svg>',
+        user: '<svg width="31" height="31" viewBox="0 0 31 31" fill="none"><circle cx="15.5" cy="11" r="5" stroke="currentColor" stroke-width="2"/><path d="M6 26c1.5-5 5-8 9.5-8s8 3 9.5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+      };
+      return icons[name];
+    }
+
+    function bars(values) {
+      const max = Math.max(...values);
+      return values.map((v, i) => `<span class="${i === values.length - 1 ? "primary" : ""}" style="height:${Math.max(10, (v / max) * 72)}px"></span>`).join("");
+    }
+
+    function kpiCard({ iconName, value, label, change, series }) {
+      const negative = change < 0;
+      const trendLabel = `${negative ? "down" : "up"} ${fmtPct.format(Math.abs(change))}`;
+      return `
+        <article class="card kpi-card">
+          <div>
+            <div class="iconbox">${icon(iconName)}</div>
+            <div class="kpi-value">${value}</div>
+            <div class="kpi-label">${label}</div>
+          </div>
+          <div>
+            <div class="trend"><strong class="${negative ? "negative" : ""}">${trendLabel}</strong><span>last month</span></div>
+            <div class="spark">${bars(series)}</div>
+          </div>
+        </article>`;
+    }
+
+    function lineChart(monthly) {
+      const svg = document.getElementById("lineChart");
+      const data = monthly.filter(d => d.gmv > 1000);
+      const width = 760, height = 300, pad = 52;
+      const xs = data.map((_, i) => pad + i * ((width - pad * 2) / (data.length - 1)));
+      const maxGmv = Math.max(...data.map(d => d.gmv));
+      const maxOrders = Math.max(...data.map(d => d.orders));
+      const yGmv = d => height - pad - (d.gmv / maxGmv) * (height - pad * 1.7);
+      const yOrders = d => height - pad - (d.orders / maxOrders) * (height - pad * 1.7);
+      const path = fn => data.map((d, i) => `${i ? "L" : "M"}${xs[i].toFixed(1)},${fn(d).toFixed(1)}`).join(" ");
+      const ticks = data.filter((_, i) => i % 3 === 0);
+
+      svg.innerHTML = `
+        <line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="#d8dae1"/>
+        <line x1="${pad}" y1="${pad / 2}" x2="${pad}" y2="${height - pad}" stroke="#d8dae1"/>
+        ${ticks.map(d => {
+          const i = data.indexOf(d);
+          return `<text x="${xs[i]}" y="${height - 18}" text-anchor="middle" font-size="12" fill="#656976">${d.order_month.slice(5)}</text>`;
+        }).join("")}
+        <path d="${path(yGmv)}" fill="none" stroke="#111318" stroke-width="3"/>
+        <path d="${path(yOrders)}" fill="none" stroke="#2846f6" stroke-width="3" stroke-dasharray="4 5"/>
+        ${data.map((d, i) => `<circle cx="${xs[i]}" cy="${yGmv(d)}" r="3" fill="#111318"/>`).join("")}
+        <text x="${width - 150}" y="26" font-size="13" fill="#111318">--- GMV</text>
+        <text x="${width - 80}" y="26" font-size="13" fill="#2846f6">--- Orders</text>
+      `;
+    }
+
+    function donutChart(categories) {
+      const svg = document.getElementById("donutChart");
+      const top = categories.slice(0, 3);
+      const total = top.reduce((sum, d) => sum + d.gmv, 0);
+      const colors = ["#2846f6", "#f46767", "#75c6eb"];
+      let offset = 25;
+      const circles = top.map((d, i) => {
+        const len = (d.gmv / total) * 100;
+        const circle = `<circle r="70" cx="155" cy="132" fill="none" stroke="${colors[i]}" stroke-width="30" stroke-dasharray="${len} ${100 - len}" stroke-dashoffset="${offset}" pathLength="100"/>`;
+        offset -= len;
+        return circle;
+      }).join("");
+      svg.innerHTML = `
+        <g transform="rotate(-90 155 132)">${circles}</g>
+        ${top.map((d, i) => `<text x="${i === 0 ? 250 : 28}" y="${88 + i * 48}" font-size="13" fill="#30333a">${d.category.replaceAll("_", " ")}<tspan x="${i === 0 ? 250 : 28}" dy="16" fill="#696d77">${fmtMoney.format(d.gmv / 1000)}K (${fmtPct.format(d.gmv / total)})</tspan></text>`).join("")}
+      `;
+    }
+
+    function horizontalBars(id, data, labelKey, valueKey, formatter) {
+      const el = document.getElementById(id);
+      const max = Math.max(...data.map(d => d[valueKey]));
+      el.innerHTML = data.map(d => `
+        <div class="bar-row">
+          <div>${String(d[labelKey]).replaceAll("_", " ").slice(0, 20)}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${(d[valueKey] / max) * 100}%"></div></div>
+          <div>${formatter(d[valueKey])}</div>
+        </div>
+      `).join("");
+    }
+
+    function sellerRows(data) {
+      const rows = document.getElementById("sellerRows");
+      rows.innerHTML = data.map(d => `
+        <tr>
+          <td>${d.seller_id.slice(0, 10)}<span class="mini">${fmtMoney.format(d.gmv / 1000)}K GMV</span></td>
+          <td>${d.seller_state || "NA"}</td>
+          <td>${fmtCompact.format(d.orders)}</td>
+          <td class="risk">${fmtPct.format(d.negative_review_rate || 0)}</td>
+        </tr>
+      `).join("");
+    }
+
+    async function init() {
+      const response = await fetch("../bi_exports/dashboard_summary.json");
+      const data = await response.json();
+      const monthly = data.monthly.filter(d => d.gmv > 1000);
+      const tail = monthly.slice(-10);
+
+      document.getElementById("kpiGrid").innerHTML = [
+        kpiCard({ iconName: "money", value: fmtMoney.format(data.kpis.gmv / 1000000) + "M", label: "GMV", change: data.kpis.gmv_mom, series: tail.map(d => d.gmv) }),
+        kpiCard({ iconName: "chart", value: fmtMoney.format(data.kpis.aov), label: "AOV", change: data.kpis.aov_mom, series: tail.map(d => d.avg_order_value) }),
+        kpiCard({ iconName: "bag", value: fmtCompact.format(data.kpis.orders), label: "Total Orders", change: data.kpis.orders_mom, series: tail.map(d => d.orders) }),
+        kpiCard({ iconName: "user", value: fmtCompact.format(data.kpis.customers), label: "Customers", change: data.kpis.customers_mom, series: tail.map(d => d.customers) })
+      ].join("");
+
+      lineChart(monthly);
+      donutChart(data.top_categories);
+      horizontalBars("categoryBars", data.top_categories.slice(0, 6), "category", "gmv", v => fmtMoney.format(v / 1000) + "K");
+      horizontalBars("stateBars", data.top_states.slice(0, 8), "state", "customers", v => fmtCompact.format(v));
+      horizontalBars("riskBars", data.top_category_risk.slice(0, 8), "category", "risk_score", v => fmtPct.format(v));
+      sellerRows(data.seller_risk);
+    }
+
+    init();
+  </script>
+</body>
+</html>

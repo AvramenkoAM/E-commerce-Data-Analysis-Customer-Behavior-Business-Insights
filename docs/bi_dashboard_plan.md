@@ -4,6 +4,16 @@
 
 Build a portfolio-ready BI dashboard that turns the Olist e-commerce analysis into an interactive business intelligence product. The dashboard should show revenue, customer behavior, payment mix, review quality, delivery performance, seller risk, category performance, and regional opportunities.
 
+## Current Branch Implementation
+
+This branch implements a Tableau-inspired dashboard prototype based on the requested reference style.
+
+- `scripts/export_bi_dashboard_data.py` builds Tableau / Power BI-ready CSV exports.
+- `bi_exports/dashboard_summary.json` feeds the interactive dashboard preview.
+- `dashboards/olist_tableau_style_dashboard.html` implements the executive KPI dashboard layout.
+- `images/bi/olist_tableau_style_dashboard.png` provides a portfolio screenshot for README.
+- `docs/tableau_reference_style.md` documents the visual style system used for the implementation.
+
 ## Recommended Tool Choice
 
 Start with Power BI if the goal is business analyst / BI analyst positioning, because it highlights data modeling, DAX measures, slicers, and stakeholder dashboards.
